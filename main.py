@@ -63,9 +63,24 @@ def WavySurface(X, Y):
     Z = np.array(Z)
     for i in range(len(X)):
         for j in range(len(X[i])):
-            #Z[i][j] = np.sqrt((X[i][j])**2 + (Y[i][j])**2) + random.uniform(-0.7, 0.7)
-            Z[i][j] = 2 * np.sin(0.5 * Y[i][j]) + 10 + random.uniform(-0.7, 0.7)
-    #Z = np.sqrt(X**2+Y**2)
+            Z[i][j] = 4 * np.sin(0.5 * Y[i][j]) + 8 + random.uniform(-0.7, 0.7)
+    return Z
+
+'''
+随机凹凸不平平面
+para:
+    X 所有采样点的x坐标的列表，np.array类型
+    Y 所有采样点的y坐标的列表，np.array类型
+'''
+def RandomSurface(X, Y):
+    temp = [0.0]* len(X[0])
+    Z = []
+    for i in range(len(X)):
+        Z.append(temp)
+    Z = np.array(Z)
+    for i in range(len(X)):
+        for j in range(len(X[i])):
+            Z[i][j] = random.uniform(8, 12)
     return Z
 
 '''
@@ -89,6 +104,8 @@ def main(funName):
         Z = paowumian(X, Y)
     elif funName == 'WavySurface':
         Z = WavySurface(X, Y)
+    elif funName == 'RandomSurface':
+        Z = RandomSurface(X, Y)
     # rstride、csride分别为两个方向上的跨度，跨度越大越宽松，越小越密集；cmap设置为彩虹样式
     ax.plot_surface(X,Y,Z,rstride=1,cstride=1,cmap=plt.get_cmap('rainbow'))#彩虹
     # 等高线图contour---细线；contourf---连在一起的宽线条 ；zdir设置从哪个坐标轴压下去;  offset=n,表示等高线图的位置在n
@@ -122,6 +139,8 @@ def sample1(funName, trueVol):
         sampleZ = paowumian(sampleX, sampleY)
     elif funName == 'WavySurface':
         sampleZ = WavySurface(sampleX, sampleY)
+    elif funName == 'RandomSurface':
+        sampleZ = RandomSurface(sampleX, sampleY)
     else:
         print("ERROR: 所输入方程名不存在")
     sampledS = 24**2/1**2
@@ -147,6 +166,8 @@ def sample4(funName, trueVol):
         sampleZ = paowumian(sampleX, sampleY)
     elif funName == 'WavySurface':
         sampleZ = WavySurface(sampleX, sampleY)
+    elif funName == 'RandomSurface':
+        sampleZ = RandomSurface(sampleX, sampleY)
     else:
         print("ERROR: 所输入方程名不存在")
     sampledS = 24**2/2**2
@@ -172,6 +193,8 @@ def sample9(funName, trueVol):
         sampleZ = paowumian(sampleX, sampleY)
     elif funName == 'WavySurface':
         sampleZ = WavySurface(sampleX, sampleY)
+    elif funName == 'RandomSurface':
+        sampleZ = RandomSurface(sampleX, sampleY)
     else:
         print("ERROR: 所输入方程名不存在")
     sampledS = 24**2/3**2
@@ -197,6 +220,8 @@ def sample16(funName, trueVol):
         sampleZ = paowumian(sampleX, sampleY)
     elif funName == 'WavySurface':
         sampleZ = WavySurface(sampleX, sampleY)
+    elif funName == 'RandomSurface':
+        sampleZ = RandomSurface(sampleX, sampleY)
     else:
         print("ERROR: 所输入方程名不存在")
     sampledS = 24**2/4**2
@@ -223,3 +248,9 @@ sample1('WavySurface', trueVol)
 sample4('WavySurface', trueVol)
 sample9('WavySurface', trueVol)
 sample16('WavySurface', trueVol)
+
+main('RandomSurface')
+sample1('RandomSurface', trueVol)
+sample4('RandomSurface', trueVol)
+sample9('RandomSurface', trueVol)
+sample16('RandomSurface', trueVol)
